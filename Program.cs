@@ -10,7 +10,7 @@ builder.Services.AddControllersWithViews();
 
 // Add ApplicationDbContext to the services
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ClothingStoreDB")));
 
 // Add Identity services
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -51,6 +51,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}");
 
 app.Run();

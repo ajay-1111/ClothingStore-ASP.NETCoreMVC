@@ -7,6 +7,20 @@
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <!-- Custom CSS -->
+    <style>
+        /* Ensure full-screen height */
+        html, body {
+            height: 100%;
+        }
+
+        /* Set carousel height */
+        .carousel-item img {
+            object-fit: cover;
+            height: 80vh; /* Adjust as needed */
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -36,13 +50,13 @@
                     </form>
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Cart" asp-action="Index">Cart</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="MyAccount">My Account</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Cart" asp-action="Index">Cart</a>
                         </li>
                     </ul>
                 </div>
@@ -56,14 +70,13 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-bottom footer text-muted">
         <div class="container">
             &copy; 2024 - Clothing Store
         </div>
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-@*    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>*@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.esm.js"></script>

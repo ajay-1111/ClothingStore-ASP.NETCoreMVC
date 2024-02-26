@@ -5,7 +5,20 @@ namespace Clothing_Store.ViewModels
     public class RegisterViewModel
     {
         [Required]
+        [StringLength(100, ErrorMessage = "First Name feild is mandatory.")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "Last Name feild is mandatory.")]
+        public string LastName { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "Telephone number is mandatory.", MinimumLength = 10)]
+        public string Telephone { get; set; }
+
+        [Required]
         [EmailAddress]
+        [StringLength(100, ErrorMessage = "Email Address is manadatory.")]
         public string Email { get; set; }
 
         [Required]

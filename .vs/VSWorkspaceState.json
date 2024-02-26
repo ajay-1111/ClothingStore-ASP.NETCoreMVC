@@ -1,17 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\Controllers",
-    "\\DataAccess",
-    "\\ViewModels",
-    "\\Views",
-    "\\Views\\Account",
-    "\\wwwroot",
-    "\\wwwroot\\lib",
-    "\\wwwroot\\lib\\bootstrap",
-    "\\wwwroot\\lib\\bootstrap\\dist",
-    "\\wwwroot\\lib\\bootstrap\\dist\\css"
+    ""
   ],
-  "SelectedNode": "\\DataAccess\\ApplicationDbContext.cs",
+  "SelectedNode": "\\Clothing Store.sln",
   "PreviewInSolutionExplorer": false
 }

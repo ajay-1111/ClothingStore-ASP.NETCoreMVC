@@ -1,53 +1,58 @@
-﻿using Clothing_Store.ViewModels;
-using Microsoft.AspNetCore.Identity;
+﻿using Clothing_Store.DataAccess;
+using Clothing_Store.ViewModels;
+using Clothing_Store.ViewModels.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clothing_Store.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ApplicationDbContext dbContext;
 
-        public AccountController(UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+       public AccountController(ApplicationDbContext dbContext)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
+            this.dbContext = dbContext;
         }
 
         [HttpGet]
-        public IActionResult Login(string returnUrl = null)
+        public IActionResult Login()
         {
-            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
+                try
                 {
-                    if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                    // Check if the email exists in the database
+                    var existingUser = await dbContext.tblUserRegistration
+                        .FirstOrDefaultAsync(u => u.Email == model.Email);
+
+                    if (existingUser == null || existingUser.Password != model.Password)
                     {
-                        return Redirect(returnUrl);
+                        // If the user with the same email doesn't exist or password doesn't match, show error message
+                        ViewBag.ErrorMessage = "Oops! Username or Password is incorrect. Please try again.";
+                        return View(model);
                     }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
+
+                    // Redirect to the home page or the requested returnUrl after successful login
+                    return RedirectToAction("Index", "Products");
                 }
-                else
+                catch (Exception)
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    // Handle exceptions
+                    ViewBag.ErrorMessage = "An error occurred while processing your request. Please try again later.";
+                    // Log the exception
                     return View(model);
                 }
             }
+
+            // If ModelState is not valid, return the view with the model data and errors
             return View(model);
         }
 
@@ -63,30 +68,44 @@ namespace Clothing_Store.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Create a new ApplicationUser with the provided email
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-
-                // Attempt to create the user in the database
-                var result = await _userManager.CreateAsync(user, model.Password);
-
-                // If user creation is successful
-                if (result.Succeeded)
+                try
                 {
-                    // Sign in the user
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    // Check if the email or telephone number already exists in the database
+                    var existingUser = await dbContext.tblUserRegistration
+                        .FirstOrDefaultAsync(u => u.Email == model.Email || u.Telephone == model.Telephone);
 
-                    // Redirect the user to the home page
+                    if (existingUser != null)
+                    {
+                        // If the user with the same email or telephone number already exists, show error message
+                        ViewBag.ErrorMessage = $"The user with email: {model.Email} or telephone number: {model.Telephone} already exists.";
+                        return View(model);
+                    }
+
+                    // If the user does not exist, proceed with user registration
+                    var userRegistration = new RegisterUserEntity()
+                    {
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Email = model.Email,
+                        Telephone = model.Telephone,
+                        Password = model.Password,
+                    };
+
+                    // Add the user to the database
+                    await dbContext.tblUserRegistration.AddAsync(userRegistration);
+                    await dbContext.SaveChangesAsync();
+
+                    // Redirect the user to the home page after successful registration
                     return RedirectToAction("Index", "Home");
                 }
-                else
+                catch (Exception e)
                 {
-                    // If user creation failed, add model errors for display
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
+                    // Handle any exceptions
+                    ModelState.AddModelError(string.Empty, e.Message);
+                    return RedirectToAction("Index", "Home");
                 }
             }
+
             // If ModelState is not valid, return the view with the model data and errors
             return View(model);
         }
@@ -94,10 +113,9 @@ namespace Clothing_Store.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Logout()
+        public Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return Task.FromResult<IActionResult>(RedirectToAction("Index", "Home"));
         }
 
     }

@@ -40,6 +40,8 @@ namespace Clothing_Store.Controllers
                         return View(model);
                     }
 
+                    HttpContext.Session.SetString("UserEmail", model.Email);
+
                     // Redirect to the home page or the requested returnUrl after successful login
                     return RedirectToAction("Index", "Products");
                 }
@@ -94,6 +96,8 @@ namespace Clothing_Store.Controllers
                     // Add the user to the database
                     await dbContext.tblUserRegistration.AddAsync(userRegistration);
                     await dbContext.SaveChangesAsync();
+
+                    HttpContext.Session.SetString("UserEmail", model.Email);
 
                     // Redirect the user to the home page after successful registration
                     return RedirectToAction("Index", "Home");

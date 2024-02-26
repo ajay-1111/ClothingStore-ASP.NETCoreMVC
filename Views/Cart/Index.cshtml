@@ -1,0 +1,26 @@
+﻿@model List<Clothing_Store.ViewModels.CartItemViewModel>
+
+<h2 class="text-center mb-4">Shopping Cart</h2>
+<div class="row mt-5 mb-3">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.Price</td>
+                    <td>@item.Quantity</td>
+                    <td>@(item.Price * item.Quantity)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

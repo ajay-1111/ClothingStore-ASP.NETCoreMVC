@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Clothing_Store.ViewModels.MyAccountViewModel
+
+<h2 class="text-center mb-4">My Account</h2>
+
+<div class="row mt-5 mb-3">
+    <form asp-action="UpdateAccount" asp-controller="MyAccount" method="post">
+        <div class="form-group mb-1">
+            <label>Email:</label>
+            <input asp-for="Email" class="form-control" readonly />
+        </div>
+        <div class="form-group mb-1">
+            <label>First Name:</label>
+            <input asp-for="FirstName" class="form-control" />
+        </div>
+        <div class="form-group mb-1">
+            <label>Last Name:</label>
+            <input asp-for="LastName" class="form-control" />
+        </div>
+        <div class="form-group mb-1">
+            <label>Address1:</label>
+            <input asp-for="Address1" class="form-control" />
+        </div>
+        <div class="form-group mb-1">
+            <label>Address2:</label>
+            <input asp-for="Address2" class="form-control" />
+        </div>
+        <div class="form-group mb-1">
+            <label>Telephone:</label>
+            <input asp-for="Telephone" class="form-control" />
+        </div>
+        <div class="form-group mb-1">
+            <label>County:</label>
+            <input asp-for="County" class="form-control" />
+        </div>
+        <div class="form-group mb-1">
+            <label>Country:</label>
+            <input asp-for="Country" class="form-control" />
+        </div>
+        <div class="form-group mb-1">
+            <label>PostCode:</label>
+            <input asp-for="PostCode" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary  mb-3">Update</button>
+    </form>
+</div>

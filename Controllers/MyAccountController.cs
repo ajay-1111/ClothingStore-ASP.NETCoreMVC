@@ -17,7 +17,7 @@ namespace Clothing_Store.Controllers
         [HttpGet]
         public async Task<IActionResult> MyAccount()
         {
-            string? userEmail = HttpContext.Session.GetString("UserEmail");
+            string? userEmail = "ajayreddy_gopu@gmail.com";
 
             var userDetails = await _dbContext.tblUserRegistration.FirstOrDefaultAsync(u => u.Email == userEmail);
 
@@ -49,7 +49,7 @@ namespace Clothing_Store.Controllers
             if (ModelState.IsValid)
             {
                 // Retrieve user's current email from session
-                string? userEmail = HttpContext.Session.GetString("UserEmail");
+                string? userEmail = "ajayreddy_gopu@gmail.com";
 
                 // Retrieve user entity from the database based on the email
                 var userDetails = this._dbContext.tblUserRegistration.FirstOrDefault(u => u.Email == userEmail);

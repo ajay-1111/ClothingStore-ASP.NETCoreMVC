@@ -40,7 +40,7 @@ namespace Clothing_Store.Controllers
                         return View(model);
                     }
 
-                    HttpContext.Session.SetString("UserEmail", model.Email);
+                    // HttpContext.Session.SetString("UserEmail", model.Email);
 
                     // Redirect to the home page or the requested returnUrl after successful login
                     return RedirectToAction("Index", "Products");

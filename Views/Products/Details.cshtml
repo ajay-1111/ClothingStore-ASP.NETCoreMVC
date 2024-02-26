@@ -1,15 +1,14 @@
-﻿@model List<Clothing_Store.ViewModels.CartItemViewModel>
+﻿@model Clothing_Store.ViewModels.ProductViewModel
 
 <div class="row mt-5 mb-3">
     <div class="card mb-5">
-        @foreach (var item in Model)
-        {
-            <img src="@item.ImageUrl" class="card-img-top" alt="Product Image">
-            <div class="card-body">
-                <h5 class="card-title">@item.ProductName</h5>
-                <p class="card-text">Price: $@item.Price</p>
-                <a href="@Url.Action("AddToCart", "Cart", new { productId = @item.ProductId})" class="btn btn-primary">Add to Cart</a>
-            </div>
-        }
+        <img src="@Model.ImageUrl" class="card-img-top" alt="Product Image">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Id</h5>
+            <p class="card-text">Price: @Model.Name</p>
+            <p class="card-text">Price: @Model.Price</p>
+            <p class="card-text">Price: @Model.Rating</p>
+            <a href="@Url.Action("AddToCart", "Cart", new { productId = @Model.Id})" class="btn btn-primary">Add to Cart</a>
+        </div>
     </div>
 </div>

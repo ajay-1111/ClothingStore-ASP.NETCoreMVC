@@ -68,8 +68,19 @@ namespace Clothing_Store.Controllers
                 return NotFound();
             }
 
+            // Loop through each product and create a view model for it
+           
+            ProductViewModel productModel = new ProductViewModel()
+            {
+                ImageUrl = product.ImageUrl,
+                Name = product.Name,
+                Price = product.Price,
+                Rating = product.Rating,
+                Id = product.Id,
+            };
+            
             // Pass the product to the view for rendering
-            return View(product);
+            return View(productModel);
         }
 
     }

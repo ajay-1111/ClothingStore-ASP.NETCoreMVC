@@ -1,10 +1,11 @@
 ﻿using Clothing_Store.ViewModels;
 using Clothing_Store.ViewModels.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clothing_Store.DataAccess
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<RegisterUserEntity>
     {
         private readonly IConfiguration _configuration;
 
@@ -14,19 +15,19 @@ namespace Clothing_Store.DataAccess
             _configuration = configuration;
         }
 
-        public virtual DbSet<RegisterUserEntity> tblUserRegistration { get; set; } = null!;
+        public virtual DbSet<RegisterUserEntity> AspNetUsers { get; set; } = null!;
 
         public virtual DbSet<ProductsEntity> tblProducts { get; set; } = null!;
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            // Call the base method
-            base.OnModelCreating(modelBuilder);
+        public virtual DbSet<UserCartEntity> tblUserCartEntities { get; set; } = null!;
 
-            // Specify the SQL Server column type for the Price property
-            modelBuilder.Entity<ProductsEntity>()
-                .Property(p => p.Price)
-                .HasColumnType("decimal(18,2)"); // Adjust the precision and scale as per your requirements
+        public virtual DbSet<OrderEntity> tblOrderEntities { get; set; } = null!;
+
+        public virtual DbSet<OrderItemEntity> tblOrderItemEntities { get; set; } = null!;
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
         }
     }
 }

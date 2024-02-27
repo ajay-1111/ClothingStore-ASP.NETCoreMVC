@@ -1,6 +1,8 @@
 ﻿using Clothing_Store.DataAccess;
 using Clothing_Store.ViewModels;
+using Clothing_Store.ViewModels.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clothing_Store.Controllers
 {
@@ -16,6 +18,7 @@ namespace Clothing_Store.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            TempData["NoProducts"] = null;
            // Retrieve all products from the database
             var products = _context.tblProducts.ToList();
 
@@ -23,7 +26,7 @@ namespace Clothing_Store.Controllers
             if (products.Count == 0)
             {
                 // If products list is empty, set an error message using ViewBag
-                ViewBag.ErrorMessage = "No products available at the moment.";
+                TempData["NoProducts"] = "No products available at the moment.";
                 return View();
             }
 
@@ -51,28 +54,22 @@ namespace Clothing_Store.Controllers
         }
 
         [HttpGet]
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int productId)
         {
-            // Check if id is null
-            if (id == null)
-            {
-                return NotFound();
-            }
+            TempData["NoProductFound"] = null;
 
             // Retrieve the product with the specified id from the database
-            var product = _context.tblProducts.FirstOrDefault(p => p.Id == id);
+            var product = await _context.tblProducts.FirstOrDefaultAsync(p => p.Id == productId);
 
             // Check if product is null
             if (product == null)
             {
-                return NotFound();
+                TempData["NoProductFound"] = $"Unable to find the product details for ID : {productId}";
             }
-
-            // Loop through each product and create a view model for it
-           
+            
             ProductViewModel productModel = new ProductViewModel()
             {
-                ImageUrl = product.ImageUrl,
+                ImageUrl = product!.ImageUrl,
                 Name = product.Name,
                 Price = product.Price,
                 Rating = product.Rating,
@@ -83,5 +80,47 @@ namespace Clothing_Store.Controllers
             return View(productModel);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetProductsByCategory(string category)
+        {
+            if (!string.IsNullOrWhiteSpace(category))
+            {
+                var categoryEnum = (ProductsEntity.ProductCategory)Enum.Parse(typeof(ProductsEntity.ProductCategory), category, true);
+
+                var products = await _context.tblProducts
+                    .Where(p => p.ProductCategoryId == categoryEnum)
+                    .ToListAsync();
+
+                if (products.Count == 0)
+                {
+                    TempData["NoProducts"] = $"No products available for category: {category}";
+                    return RedirectToAction("Index");
+                }
+
+                var productViewModels = products.Select(product => new ProductViewModel
+                {
+                    ImageUrl = product.ImageUrl,
+                    Name = product.Name,
+                    Price = product.Price,
+                    Rating = product.Rating,
+                    Id = product.Id
+                }).ToList();
+
+                return View("Index", productViewModels);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Search(string query)
+        {
+            var results = await _context.tblProducts
+                .Where(p => p.Name.Contains(query))
+                .Select(p => new { p.Name })
+                .ToListAsync();
+
+            return Json(results);
+        }
     }
 }

@@ -1,46 +1,43 @@
 ﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model Clothing_Store.ViewModels.MyAccountViewModel
 
-<h2 class="text-center mb-4">My Account</h2>
+<h2 class="text-center mb-2" style="padding-top : 2em">My Account</h2>
 
-<div class="row mt-5 mb-3">
-    <form asp-action="UpdateAccount" asp-controller="MyAccount" method="post">
-        <div class="form-group mb-1">
-            <label>Email:</label>
-            <input asp-for="Email" class="form-control" readonly />
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow p-3 mb-5 bg-body rounded">
+                <div class="card-body">
+                    <form asp-action="UpdateAccount" asp-controller="MyAccount" method="post">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="email">Email:</label>
+                                    <input asp-for="Email" class="form-control" disabled readonly />
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label asp-for="FirstName">First Name:</label>
+                                    <input asp-for="FirstName" class="form-control" />
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label asp-for="LastName">Last Name:</label>
+                                    <input asp-for="LastName" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="Telephone">Telephone:</label>
+                                    <input asp-for="Telephone" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <button type="submit" class="btn btn-primary mb-2">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="form-group mb-1">
-            <label>First Name:</label>
-            <input asp-for="FirstName" class="form-control" />
-        </div>
-        <div class="form-group mb-1">
-            <label>Last Name:</label>
-            <input asp-for="LastName" class="form-control" />
-        </div>
-        <div class="form-group mb-1">
-            <label>Address1:</label>
-            <input asp-for="Address1" class="form-control" />
-        </div>
-        <div class="form-group mb-1">
-            <label>Address2:</label>
-            <input asp-for="Address2" class="form-control" />
-        </div>
-        <div class="form-group mb-1">
-            <label>Telephone:</label>
-            <input asp-for="Telephone" class="form-control" />
-        </div>
-        <div class="form-group mb-1">
-            <label>County:</label>
-            <input asp-for="County" class="form-control" />
-        </div>
-        <div class="form-group mb-1">
-            <label>Country:</label>
-            <input asp-for="Country" class="form-control" />
-        </div>
-        <div class="form-group mb-1">
-            <label>PostCode:</label>
-            <input asp-for="PostCode" class="form-control" />
-        </div>
-        <button type="submit" class="btn btn-primary  mb-3">Update</button>
-    </form>
+    </div>
 </div>
+

@@ -3,34 +3,46 @@
     ViewData["Title"] = "Login";
 }
 
-<h2 class="text-center mb-4">Login</h2>
+<h2 class="text-center mb-4" style="padding-top: 2em;">Login</h2>
 
 <div class="row justify-content-center">
-    <div class="col-md-4">
-        <form asp-action="Login" method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group mb-3">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+    <div class="col-md-6">
+        <div class="card shadow p-3 mb-5 bg-body rounded" style="background-color: #f8d7da;">
+            <div class="card-body">
+                <form asp-action="Login" method="post">
+                    @* <div asp-validation-summary="All" class="text-danger"></div>*@
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label"></label>
+                        <input asp-for="Password" type="password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <a asp-action="Register" asp-controller="Account">Register Here</a>
+                    </div>
+                    <button type="submit" class="btn btn-success">Login</button>
+                </form>
             </div>
-            <div class="form-group mb-3">
-                <label asp-for="Password"></label>
-                <input asp-for="Password" type="password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <div class="form-check">
-                    <input asp-for="RememberMe" class="form-check-input" />
-                    <label asp-for="RememberMe" class="form-check-label"></label>
-                </div>
-            </div>
-            <div class="form-group mb-3">
-                <div class="form-check">
-                    <a asp-action="Register" asp-controller="Account">Register Here</a>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-success btn-block">Login</button>
-        </form>
+        </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var customeMessage = '@(TempData["LoginError"] as string)';
+
+        if (customeMessage) {
+            Swal.fire(
+                'Clothing Store',
+                customeMessage,
+                'error').then(function () {
+                    var url = '@Url.Action("Login", "Account")';
+                    window.location.href = url;
+                });
+        }
+    });
+</script>

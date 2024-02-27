@@ -1,26 +1,154 @@
 ﻿@model List<Clothing_Store.ViewModels.CartItemViewModel>
 
-<h2 class="text-center mb-4">Shopping Cart</h2>
-<div class="row mt-5 mb-3">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.ProductName</td>
-                    <td>@item.Price</td>
-                    <td>@item.Quantity</td>
-                    <td>@(item.Price * item.Quantity)</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<h2 class="text-center mb-4" style="padding-top: 2em">Shopping Cart</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.ProductName</td>
+                                <td>$@item.Price</td>
+                                <td>
+                                    <div class="input-group">
+                                        <button class="btn btn-outline-secondary minusBtn" data-product-id="@item.ProductId">-</button>
+                                        <input type="text" class="form-control quantity-input" value="@item.Quantity" id="quantity-@item.ProductId" readonly />
+                                        <button class="btn btn-outline-secondary plusBtn" data-product-id="@item.ProductId">+</button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger removeBtn" data-product-id="@item.ProductId">Remove</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-end">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Total</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">$<span id="totalPrice">@Model.Sum(item => item.Price * item.Quantity)</span></h6>
+                    <button id="checkoutBtn" class="btn btn-primary btn-block">Proceed to Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    <script>
+
+        $(document).ready(function () {
+            // Increase quantity
+            $('.plusBtn').click(function () {
+                var productId = $(this).data('product-id');
+                var quantityInput = $('#quantity-' + productId);
+                var quantity = parseInt(quantityInput.val());
+                quantityInput.val(quantity + 1);
+                updateTotalPrice();
+            });
+
+            // Decrease quantity
+            $('.minusBtn').click(function () {
+                var productId = $(this).data('product-id');
+                var quantityInput = $('#quantity-' + productId);
+                var quantity = parseInt(quantityInput.val());
+                if (quantity > 1) {
+                    quantityInput.val(quantity - 1);
+                    updateTotalPrice();
+                }
+            });
+
+            // Remove item
+            $('.removeBtn').click(function () {
+                var productId = $(this).data('product-id');
+                var row = $(this).closest('tr');
+
+                // Send AJAX request to remove the item from the cart
+                $.ajax({
+                    url: '/Cart/RemoveFromCart', // Update the URL to your controller action
+                    method: 'POST',
+                    data: { productId: productId },
+                    success: function (response) {
+                        if (response.success) {
+                            // Remove the table row from the DOM if deletion was successful
+                            row.remove();
+                            updateTotalPrice();
+                        } else {
+                            // Handle the case where deletion failed
+                            console.error('Failed to remove item from cart.');
+                        }
+                    },
+                    error: function (err) {
+                        console.error('Error:', err);
+                    }
+                });
+            });
+
+            // Update total price
+            function updateTotalPrice() {
+                var totalPrice = 0;
+                $('.quantity-input').each(function () {
+                    var priceText = $(this).closest('tr').find('td:eq(1)').text().trim().replace('$', ''); // Remove extra spaces and $
+                    var price = parseFloat(priceText);
+                    var quantity = parseInt($(this).val());
+                    if (!isNaN(price) && !isNaN(quantity)) {
+                        totalPrice += price * quantity;
+                    }
+                });
+                $('#totalPrice').text('$' + totalPrice.toFixed(2)); // Update the text to include a single dollar sign
+            }
+
+            // Proceed to checkout
+            $('#checkoutBtn').click(function () {
+                // Send AJAX request to place the order
+                debugger;
+                $.ajax({
+                    url: '/Cart/PlaceOrder',
+                    method: 'POST',
+                    success: function (response) {
+                        if (response.success) {
+                            // Show success message
+                            Swal.fire(
+                                'Order Placed',
+                                'Your order has been placed successfully!',
+                                'success'
+                            ).then((result) => {
+                                // Reload the page to update the cart
+                                location.reload();
+                            });
+                        } else {
+                            // Show error message
+                            Swal.fire(
+                                'Error',
+                                'Failed to place order. Please try again later.',
+                                'error'
+                            );
+                        }
+                    },
+                    error: function (err) {
+                        console.error('Error:', err);
+                    }
+                });
+            });
+
+        });
+
+    </script>
+}

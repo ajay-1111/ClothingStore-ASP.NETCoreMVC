@@ -19,7 +19,7 @@ namespace Clothing_Store.Controllers
         {
             string? userEmail = "ajayreddy_gopu@gmail.com";
 
-            var userDetails = await _dbContext.tblUserRegistration.FirstOrDefaultAsync(u => u.Email == userEmail);
+            var userDetails = await _dbContext.AspNetUsers.FirstOrDefaultAsync(u => u.Email == userEmail);
 
             if (userDetails == null)
             {
@@ -31,11 +31,7 @@ namespace Clothing_Store.Controllers
                 Email = userDetails.Email,
                 FirstName = userDetails.FirstName,
                 LastName = userDetails.LastName,
-                Address1 = userDetails.Address1,
-                Address2 = userDetails.Address2,
-                PostCode = userDetails.PostCode,
-                Country = userDetails.Country,
-                Telephone = userDetails.Telephone
+                Telephone = userDetails.Telephone,
             };
 
             return View(model);
@@ -52,22 +48,17 @@ namespace Clothing_Store.Controllers
                 string? userEmail = "ajayreddy_gopu@gmail.com";
 
                 // Retrieve user entity from the database based on the email
-                var userDetails = this._dbContext.tblUserRegistration.FirstOrDefault(u => u.Email == userEmail);
+                var userDetails = this._dbContext.AspNetUsers.FirstOrDefault(u => u.Email == userEmail);
 
                 if (userDetails != null)
                 {
                     // Update user properties with the values from the view model
                     userDetails.FirstName = model.FirstName;
                     userDetails.LastName = model.LastName;
-                    userDetails.Address1 = model.Address1;
-                    userDetails.Address2 = model.Address2;
-                    userDetails.PostCode = model.PostCode;
-                    userDetails.Country = model.Country;
                     userDetails.Telephone = model.Telephone;
-                    userDetails.County = model.County;
 
                     // Update user in the database
-                    var result = _dbContext.tblUserRegistration.Update(userDetails);
+                    var result = _dbContext.AspNetUsers.Update(userDetails);
                     await _dbContext.SaveChangesAsync();
 
                     // Update successful

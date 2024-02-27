@@ -1,7 +1,11 @@
 ﻿using Clothing_Store.DataAccess;
 using Clothing_Store.ViewModels;
+using Clothing_Store.ViewModels.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Security.Claims;
 
 namespace Clothing_Store.Controllers
 {
@@ -11,76 +15,160 @@ namespace Clothing_Store.Controllers
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CartController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
+        private readonly UserManager<RegisterUserEntity> _userManager;
+
+        private readonly SignInManager<RegisterUserEntity> _signInManager;
+
+        public CartController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, UserManager<RegisterUserEntity> userManager, SignInManager<RegisterUserEntity> signInManager)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
+            _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            // Retrieve cart items from storage (e.g., session, database)
-            var cartItems = GetCartItems();
+            var cartItems = await GetCartItemsForCurrentUser();
+            ViewBag.CartItemCount = await GetCartItemCount();
             return View(cartItems);
         }
 
-        [HttpPost]
-        public IActionResult AddToCart(int productId)
+        [HttpGet]
+        public async Task<IActionResult> AddToCart(int id)
         {
+            TempData["CartItemCount"] = null;
+
             // Retrieve product details from the database
-            var product = _context.tblProducts.FirstOrDefault(p => p.Id == productId);
-            if (product == null)
+            var product = await _context.tblProducts.FirstOrDefaultAsync(p => p.Id == id);
+
+            var checkIfUserSignedInOrNot = _signInManager.IsSignedIn(User);
+
+            if (checkIfUserSignedInOrNot)
             {
-                return NotFound();
-            }
+                var user = _userManager.GetUserId(User);
 
-            // Add the product to the cart
-            var cartItems = GetCartItems();
-
-            cartItems.Add(new CartItemViewModel()
-            {
-                ProductId = product.Id,
-                ProductName = product.Name,
-                Price = product.Price,
-                Quantity = 1,
-                ImageUrl = product.ImageUrl,
-            });
-
-            // Store the updated cart items
-            SaveCartItems(cartItems);
-
-            return RedirectToAction("Index", "Cart");
-        }
-
-        private List<CartItemViewModel> GetCartItems()
-        {
-            // Retrieve cart items from session storage
-            var session = _httpContextAccessor.HttpContext?.Session;
-            if (session != null)
-            {
-                var cartItemsJson = session.GetString("CartItems");
-                if (cartItemsJson == null)
+                if (user != null)
                 {
-                    // If cart items don't exist, return an empty list
-                    return new List<CartItemViewModel>();
+                    // Check if the item is already in the cart.
+                    var getTheQuantity = await _context.tblUserCartEntities.FirstOrDefaultAsync(p => p.productId == id);
+                    if (getTheQuantity != null)
+                    {
+                        // If the item is already in the cart then increase the quantity.
+                        getTheQuantity.Quantity += 1;
+
+                        _context.Update(getTheQuantity);
+                    }
+                    else
+                    {
+                        // user has no cart but adding a new item to the existing cart.
+
+                        if (product != null)
+                        {
+                            UserCartEntity newUserCartEntity = new UserCartEntity()
+                            {
+                                productId = product.Id,
+                                userId = user,
+                                Quantity = 1,
+                                Price = product.Price
+                            };
+
+                            await _context.tblUserCartEntities.AddAsync(newUserCartEntity);
+                        }
+                    }
+                }
+                else
+                {
+                    // user has no cart. Adding a brand new cart for the user.
+
+                    UserCartEntity newUserCartEntity = new UserCartEntity()
+                    {
+                        productId = product!.Id,
+                        userId = user!,
+                        Quantity = 1,
+                        Price = product.Price
+                    };
+
+                    await _context.tblUserCartEntities.AddAsync(newUserCartEntity);
                 }
 
-                // Deserialize the JSON string to a list of CartItemViewModel objects
-                return JsonConvert.DeserializeObject<List<CartItemViewModel>>(cartItemsJson) ?? throw new InvalidOperationException();
+                await _context.SaveChangesAsync();
             }
 
-            // If session is null, return an empty list
+
+            // Set the cart item count in TempData
+            int cartItemCount = await GetCartItemCount();
+            TempData["CartItemCount"] = cartItemCount;
+
+            return RedirectToAction("Index", "Products");
+        }
+        private async Task<int> GetCartItemCount()
+        {
+            if (_signInManager.IsSignedIn(User))
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user != null)
+                {
+                    return await _context.tblUserCartEntities
+                        .Where(u => u.userId == user.Id)
+                        .SumAsync(u => u.Quantity);
+                }
+            }
+            return 0;
+        }
+        private async Task<List<CartItemViewModel>> GetCartItemsForCurrentUser()
+        {
+            if (_signInManager.IsSignedIn(User))
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user != null)
+                {
+                    var cartItems = await (from uc in _context.tblUserCartEntities
+                        join p in _context.tblProducts on uc.productId equals p.Id
+                        where uc.userId == user.Id
+                        select new CartItemViewModel
+                        {
+                            ProductId = p.Id,
+                            ImageUrl = p.ImageUrl,
+                            ProductName = p.Name,
+                            Price = p.Price,
+                            Quantity = uc.Quantity
+                        }).ToListAsync();
+
+                    return cartItems;
+                }
+            }
             return new List<CartItemViewModel>();
         }
 
-
-        private void SaveCartItems(List<CartItemViewModel> cartItems)
+        [HttpPost]
+        public async Task<IActionResult> RemoveFromCart(int productId)
         {
-            var cartItemsJson = JsonConvert.SerializeObject(cartItems);
-            // Store the JSON string in session storage
-            _httpContextAccessor.HttpContext?.Session.SetString("CartItems", cartItemsJson);
+            // Retrieve the current user's ID from the HttpContext
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+            if (userId == null)
+            {
+                // Handle the case where the user is not authenticated
+                return Unauthorized();
+            }
+
+            // Find the item in the user's cart
+            var cartItem = await _context.tblUserCartEntities.FirstOrDefaultAsync(c => c.productId == productId && c.userId == userId);
+
+            if (cartItem != null)
+            {
+                _context.tblUserCartEntities.Remove(cartItem);
+                await _context.SaveChangesAsync();
+
+                // Return a success response
+                return Json(new { success = true });
+            }
+
+            // Return an error response if the item was not found in the cart
+            return Json(new { success = false });
         }
+
     }
 }

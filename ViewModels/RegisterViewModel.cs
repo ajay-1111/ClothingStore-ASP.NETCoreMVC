@@ -4,24 +4,24 @@ namespace Clothing_Store.ViewModels
 {
     public class RegisterViewModel
     {
-        [Required]
-        [StringLength(100, ErrorMessage = "First Name feild is mandatory.")]
+        [Required(ErrorMessage = "First Name field is mandatory.")]
+        [StringLength(100)]
         public string FirstName { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "Last Name feild is mandatory.")]
+        [Required(ErrorMessage = "Last Name field is mandatory.")]
+        [StringLength(100)]
         public string LastName { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "Telephone number is mandatory.", MinimumLength = 10)]
+        [Required(ErrorMessage = "Telephone number is mandatory.")]
+        [StringLength(100, MinimumLength = 10)]
         public string Telephone { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Email Address is mandatory.")]
         [EmailAddress]
-        [StringLength(100, ErrorMessage = "Email Address is manadatory.")]
+        [StringLength(100)]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Password is mandatory.")]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         public string Password { get; set; }

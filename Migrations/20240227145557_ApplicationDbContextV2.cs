@@ -5,7 +5,7 @@
 namespace Clothing_Store.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateProductsTableV1 : Migration
+    public partial class ApplicationDbContextV2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -17,18 +17,6 @@ namespace Clothing_Store.ViewModels
         public string Email { get; set; }
 
         [StringLength(100)]
-        public string Address1 { get; set; }
-
-        [StringLength(100)]
-        public string Address2 { get; set; }
-
-        [StringLength(100)]
-        public string County { get; set; }
-
-        [StringLength(100)]
-        public string Country { get; set; }
-
-        [StringLength(100)]
         public string PostCode { get; set; }
     }
 }

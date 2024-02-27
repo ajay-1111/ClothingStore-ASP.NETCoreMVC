@@ -1,18 +1,45 @@
 ﻿@model List<Clothing_Store.ViewModels.ProductViewModel>
 
-<div class="row mt-5 mb-3">
-    @foreach (var product in Model)
-    {
-        <div class="col-md-4 mb-3">
-            <div class="card">
-                <img src="@product.ImageUrl" class="card-img-top" alt="Product Image">
-                <div class="card-body">
-                    <h5 class="card-title">@product.Name</h5>
-                    <p class="card-text">Price: $@product.Price</p>
-                    <p class="card-text">Rating: @product.Rating</p>
-                    <a href="@Url.Action("Details", "Products", new { id = product.Id })" class="btn btn-primary">View Details</a>
+<div class="container">
+    <div class="row mt-5 mb-3">
+        @foreach (var product in Model)
+        {
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <img src="@product.ImageUrl" class="card-img-top" alt="Product Image">
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text">Price: $@product.Price</p>
+                        <p class="card-text">Rating: @product.Rating</p>
+                        <a href="@Url.Action("Details", "Products", new { productId = product.Id })" class="btn btn-primary">View Details</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var NoProducts = '@(TempData["NoProducts"] as string)';
+        var NoProductFound = '@(TempData["NoProductFound"] as string)';
+
+        if (NoProducts) {
+            Swal.fire(
+                'Clothing Store',
+                NoProducts,
+                'warning');
+        }
+
+        if (RegistrationErrorMessage) {
+            Swal.fire(
+                'Clothing Store',
+                NoProductFound,
+                'warning').then(function () {
+                    var url = '@Url.Action("Index", "Products")';
+                    window.location.href = url;
+                });
+        }
+    };
+</script>

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Clothing_Store.DataAccess;
-using Clothing_Store.ViewModels;
+using Clothing_Store.ViewModels.Entities;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,22 +8,20 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-//// Add session services
-//builder.Services.AddDistributedMemoryCache(); // This is required to store session data in memory
-//builder.Services.AddSession(options =>
-//{
-//    options.Cookie.Name = ".ClothingStore.Session";
-//    options.IdleTimeout = TimeSpan.FromMinutes(30); // Adjust the timeout as needed
-//    options.Cookie.HttpOnly = true;
-//    options.Cookie.IsEssential = true;
-//});
+// Add session services
+builder.Services.AddSession(options =>
+{
+    // Configure session options as needed
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true; // Make the session cookie essential
+});
 
 // Add ApplicationDbContext to the services
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ClothingStoreDB")));
 
 // Add Identity services
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+builder.Services.AddIdentity<RegisterUserEntity, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
@@ -57,10 +55,16 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Use session middleware
+app.UseSession();
+
+// Use authentication middleware
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

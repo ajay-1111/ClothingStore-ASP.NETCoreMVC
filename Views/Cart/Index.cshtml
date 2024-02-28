@@ -112,7 +112,7 @@
                             Swal.fire(
                                 'Clothing Store',
                                 response.message,
-                                'warning').then(function () {
+                                'success').then(function () {
                                     var url = '@Url.Action("Index", "Products")';
                                     window.location.href = url;
                                 });
@@ -120,7 +120,7 @@
                             Swal.fire(
                                 'Clothing Store',
                                 response.message,
-                                'warning').then(function () {
+                                'error').then(function () {
                                     var url = '@Url.Action("Index", "Products")';
                                     window.location.href = url;
                                 });

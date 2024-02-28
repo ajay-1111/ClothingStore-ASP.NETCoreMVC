@@ -1,5 +1,7 @@
 ﻿using Clothing_Store.DataAccess;
 using Clothing_Store.ViewModels;
+using Clothing_Store.ViewModels.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,32 +11,41 @@ namespace Clothing_Store.Controllers
     {
         private readonly ApplicationDbContext _dbContext;
 
-        public MyAccountController(ApplicationDbContext _dbContext)
+        private readonly UserManager<RegisterUserEntity> _userManager;
+
+        private readonly SignInManager<RegisterUserEntity> _signInManager;
+
+        public MyAccountController(ApplicationDbContext _dbContext, SignInManager<RegisterUserEntity> signInManager, UserManager<RegisterUserEntity> userManager)
         {
             this._dbContext = _dbContext;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [HttpGet]
         public async Task<IActionResult> MyAccount()
         {
-            string? userEmail = "ajayreddy_gopu@gmail.com";
-
-            var userDetails = await _dbContext.AspNetUsers.FirstOrDefaultAsync(u => u.Email == userEmail);
-
-            if (userDetails == null)
+            if (_signInManager.IsSignedIn(User))
             {
-                return NotFound();
+                var user = await _userManager.GetUserAsync(User);
+
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                var model = new MyAccountViewModel
+                {
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Telephone = user.Telephone,
+                };
+
+                return View(model);
             }
 
-            var model = new MyAccountViewModel
-            {
-                Email = userDetails.Email,
-                FirstName = userDetails.FirstName,
-                LastName = userDetails.LastName,
-                Telephone = userDetails.Telephone,
-            };
-
-            return View(model);
+            return View();
         }
 
 
@@ -44,25 +55,32 @@ namespace Clothing_Store.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Retrieve user's current email from session
-                string? userEmail = "ajayreddy_gopu@gmail.com";
-
-                // Retrieve user entity from the database based on the email
-                var userDetails = this._dbContext.AspNetUsers.FirstOrDefault(u => u.Email == userEmail);
-
-                if (userDetails != null)
+                if (_signInManager.IsSignedIn(User))
                 {
-                    // Update user properties with the values from the view model
-                    userDetails.FirstName = model.FirstName;
-                    userDetails.LastName = model.LastName;
-                    userDetails.Telephone = model.Telephone;
+                    var user = await _userManager.GetUserAsync(User);
 
-                    // Update user in the database
-                    var result = _dbContext.AspNetUsers.Update(userDetails);
-                    await _dbContext.SaveChangesAsync();
+                    if (user == null)
+                    {
+                        return NotFound();
+                    }
 
-                    // Update successful
-                    return RedirectToAction("Index", "Products");
+                    // Retrieve user entity from the database based on the email
+                    var userDetails = this._dbContext.AspNetUsers.FirstOrDefault(u => u.Email == user.Email);
+
+                    if (userDetails != null)
+                    {
+                        // Update user properties with the values from the view model
+                        userDetails.FirstName = model.FirstName;
+                        userDetails.LastName = model.LastName;
+                        userDetails.Telephone = model.Telephone;
+
+                        // Update user in the database
+                        var result = _dbContext.AspNetUsers.Update(userDetails);
+                        await _dbContext.SaveChangesAsync();
+
+                        // Update successful
+                        return RedirectToAction("Index", "Products");
+                    }
                 }
 
                 // User not found

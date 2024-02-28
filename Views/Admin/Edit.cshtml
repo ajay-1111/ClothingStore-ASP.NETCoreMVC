@@ -1,0 +1,69 @@
+﻿@model Clothing_Store.ViewModels.Entities.ProductsEntity
+
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<div class="container mt-5">
+    <h2>Edit Product</h2>
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <label>Name:</label>
+            <input type="text" class="form-control" asp-for="Name">
+        </div>
+        <div class="form-group">
+            <label>Price(£):</label>
+            <input type="text" class="form-control" asp-for="Price">
+        </div>
+        <div class="form-group">
+            <label>Rating:</label>
+            <input type="text" class="form-control" asp-for="Rating">
+        </div>
+        <div class="form-group">
+            <label>Description:</label>
+            <textarea class="form-control" asp-for="Description"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Category:</label>
+            <select class="form-control" id="ProductCategory" name="ProductCategoryId" required>
+                <option value="1">Mens</option>
+                <option value="2">Women</option>
+                <option value="3">Kids</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Image Name:</label>
+            <input type="text" class="form-control" value="@Model.ImageUrl" disabled>
+            <input type="hidden" asp-for="ImageUrl" />
+        </div>
+        <button type="submit" class="btn btn-primary">Update Product</button>
+    </form>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var customeMessage = '@(TempData["UpdateSuccess"] as string)';
+        var customeErrorMessage = '@(TempData["UpdateError"] as string)';
+
+        if (customeMessage) {
+            Swal.fire(
+                'Admin',
+                customeMessage,
+                'error').then(function () {
+                    var url = '@Url.Action("Index", "Admin")';
+                    window.location.href = url;
+                });
+        }
+        
+        if (customeErrorMessage) {
+            Swal.fire(
+                'Admin',
+                customeErrorMessage,
+                'error').then(function () {
+                    var url = '@Url.Action("Index", "Admin")';
+                    window.location.href = url;
+                });
+        }
+    });
+</script>

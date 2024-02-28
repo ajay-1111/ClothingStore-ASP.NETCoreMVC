@@ -14,9 +14,9 @@ namespace Clothing_Store.ViewModels
         public string Telephone { get; set; }
 
         [StringLength(100)]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         [StringLength(100)]
-        public string PostCode { get; set; }
+        public string? PostCode { get; set; }
     }
 }

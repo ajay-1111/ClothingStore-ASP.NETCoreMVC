@@ -33,7 +33,6 @@ namespace Clothing_Store.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            TempData["CartItemCount"] = null;
             TempData["LoginError"] = null;
 
             if (ModelState.IsValid)
@@ -66,8 +65,8 @@ namespace Clothing_Store.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            TempData["RegisterationMessage"] = null;
             TempData["RegisterationErrorMessage"] = null;
+
             if (ModelState.IsValid)
             {
                 try
@@ -87,15 +86,17 @@ namespace Clothing_Store.Controllers
                     if (registration.Succeeded)
                     {
                         await this.signInManager.SignInAsync(newUser, isPersistent: false);
-                        TempData["RegisterationMessage"] = "Hurry!.. Successfully register.Please login to continue.";
+                        return RedirectToAction("Login", "Account");
                     }
-                    
-                    return View(model);
+
+                    TempData["RegisterationErrorMessage"] = "Password should be min-6 & max-100 characters alphanumeric and should contain atleast one special character.";
+
+                    return Json(new { success = true });
                 }
                 catch (Exception ex)
                 {
                     TempData["RegisterationErrorMessage"] = ex.Message;
-                    return View(model);
+                    return Json(new { success = true });
                 }
             }
 
@@ -104,11 +105,32 @@ namespace Clothing_Store.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
+            // Get the current user
+            var user = await this.userManager.GetUserAsync(User);
+
+            // Sign out the user
             await this.signInManager.SignOutAsync();
+
+            if (user != null)
+            {
+                // Delete the cart items associated with the user
+                var cartItems = await this.dbContext.tblUserCartEntities
+                    .Where(u => u.userId == user.Id)
+                    .ToListAsync();
+
+                if (cartItems.Any())
+                {
+                    this.dbContext.tblUserCartEntities.RemoveRange(cartItems);
+                    await this.dbContext.SaveChangesAsync();
+                }
+            }
+
             return RedirectToAction("Index", "Home");
         }
+
 
     }
 }

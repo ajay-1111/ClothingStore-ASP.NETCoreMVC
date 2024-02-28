@@ -94,7 +94,7 @@ namespace Clothing_Store.Controllers
                 if (products.Count == 0)
                 {
                     TempData["NoProducts"] = $"No products available for category: {category}";
-                    return RedirectToAction("Index");
+                    return Json(new { success = true });
                 }
 
                 var productViewModels = products.Select(product => new ProductViewModel

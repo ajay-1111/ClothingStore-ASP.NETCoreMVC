@@ -25,6 +25,8 @@ builder.Services.AddIdentity<RegisterUserEntity, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 // Apply any pending migrations
@@ -60,7 +62,6 @@ app.UseSession();
 
 // Use authentication middleware
 app.UseAuthentication();
-
 app.UseAuthorization();
 
 app.MapControllerRoute(

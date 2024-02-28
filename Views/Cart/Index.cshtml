@@ -44,7 +44,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Total</h5>
                     <h6 class="card-subtitle mb-2 text-muted">$<span id="totalPrice">@Model.Sum(item => item.Price * item.Quantity)</span></h6>
-                    <button id="checkoutBtn" class="btn btn-primary btn-block">Proceed to Checkout</button>
+                    <button class="btn btn-primary btn-block checkOutBtn">Proceed to Checkout</button>
                 </div>
             </div>
         </div>
@@ -101,6 +101,37 @@
                 });
             });
 
+            // Remove item
+            $('.checkOutBtn').click(function () {
+                // Send AJAX request to remove the item from the cart
+                $.ajax({
+                    url: '/Orders/PlaceOrder', // Update the URL to your controller action
+                    method: 'POST',
+                    success: function (response) {
+                        if (response.success) {
+                            Swal.fire(
+                                'Clothing Store',
+                                response.message,
+                                'warning').then(function () {
+                                    var url = '@Url.Action("Index", "Products")';
+                                    window.location.href = url;
+                                });
+                        } else {
+                            Swal.fire(
+                                'Clothing Store',
+                                response.message,
+                                'warning').then(function () {
+                                    var url = '@Url.Action("Index", "Products")';
+                                    window.location.href = url;
+                                });
+                        }
+                    },
+                    error: function (err) {
+                        console.error('Error:', err);
+                    }
+                });
+            });
+
             // Update total price
             function updateTotalPrice() {
                 var totalPrice = 0;
@@ -113,40 +144,7 @@
                     }
                 });
                 $('#totalPrice').text('$' + totalPrice.toFixed(2)); // Update the text to include a single dollar sign
-            }
-
-            // Proceed to checkout
-            $('#checkoutBtn').click(function () {
-                // Send AJAX request to place the order
-                debugger;
-                $.ajax({
-                    url: '/Cart/PlaceOrder',
-                    method: 'POST',
-                    success: function (response) {
-                        if (response.success) {
-                            // Show success message
-                            Swal.fire(
-                                'Order Placed',
-                                'Your order has been placed successfully!',
-                                'success'
-                            ).then((result) => {
-                                // Reload the page to update the cart
-                                location.reload();
-                            });
-                        } else {
-                            // Show error message
-                            Swal.fire(
-                                'Error',
-                                'Failed to place order. Please try again later.',
-                                'error'
-                            );
-                        }
-                    },
-                    error: function (err) {
-                        console.error('Error:', err);
-                    }
-                });
-            });
+            }         
 
         });
 

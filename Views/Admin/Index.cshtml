@@ -1,0 +1,51 @@
+﻿@model Clothing_Store.ViewModels.PaginatedList<Clothing_Store.ViewModels.Entities.ProductsEntity>
+
+<h2>Product List</h2>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Rating</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>$@product.Price</td>
+                    <td>@product.Rating</td>
+                    <td>@product.ProductCategoryId</td>
+                    <td>@product.Description</td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Admin", new { id = product.Id })" class="btn btn-outline-primary">Edit Product</a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Delete", "Admin", new { id = product.Id })" class="btn btn-outline-danger">Delete Product</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="text-center">
+    @if (Model.HasPreviousPage)
+    {
+        <a asp-action="Index" asp-route-page="@(Model.PageIndex - 1)" class="btn btn-outline-primary">Previous</a>
+    }
+    @if (Model.HasNextPage)
+    {
+        <a asp-action="Index" asp-route-page="@(Model.PageIndex + 1)" class="btn btn-outline-primary">Next</a>
+    }
+</div>
+
+<div class="text-center mt-4">
+    <a href="@Url.Action("Create", "Admin")" class="btn btn-success">Add New Product</a>
+</div>

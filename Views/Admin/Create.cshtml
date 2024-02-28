@@ -1,0 +1,62 @@
+﻿@model Clothing_Store.ViewModels.Entities.ProductsEntity
+
+<h2>Create New Product</h2>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="Name">Name:</label>
+        <input type="text" class="form-control" id="Name" name="Name" required>
+    </div>
+    <div class="form-group">
+        <label for="Price">Price(£):</label>
+        <input type="number" class="form-control" id="Price" name="Price" required>
+    </div>
+    <div class="form-group">
+        <label for="Rating">Rating:</label>
+        <input type="number" class="form-control" id="Rating" name="Rating" required>
+    </div>
+    <div class="form-group">
+        <label for="Description">Description:</label>
+        <textarea class="form-control" id="Description" name="Description" rows="3" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="ProductCategory">Category:</label>
+        <select class="form-control" id="ProductCategory" name="ProductCategoryId" required>
+            <option value="1">Mens</option>
+            <option value="2">Women</option>
+            <option value="3">Kids</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="ImageUrl">Image:</label>
+        <input type="file" id="ImageUrl" class="form-control-file" name="ProductImage" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Create Product</button>
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var customeMessage = '@(TempData["AddSuccess"] as string)';
+        var customeErrorMessage = '@(TempData["AddError"] as string)';
+
+        if (customeMessage) {
+            Swal.fire(
+                'Admin',
+                customeMessage,
+                'error').then(function () {
+                    var url = '@Url.Action("Index", "Admin")';
+                    window.location.href = url;
+                });
+        }
+        
+        if (customeErrorMessage) {
+            Swal.fire(
+                'Admin',
+                customeErrorMessage,
+                'error').then(function () {
+                    var url = '@Url.Action("Index", "Admin")';
+                    window.location.href = url;
+                });
+        }
+    });
+</script>

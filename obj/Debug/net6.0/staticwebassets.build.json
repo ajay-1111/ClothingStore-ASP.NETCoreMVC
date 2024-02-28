@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "LH/87QpTixXMBgzeQKuV5tHLfogqD+FxH2Pxfbp9rsQ=",
+  "Hash": "j8COJg7h/eJ5MA2F4vetir7clSqJQmGzFliSeQIZSPA=",
   "Source": "Clothing Store",
   "BasePath": "_content/Clothing Store",
   "Mode": "Default",
@@ -83,6 +83,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\AGOPU\\Source\\Repos\\ClothingStore-ASP.NETCoreMVC\\wwwroot\\Images\\04498db8-03fd-4692-99fe-10fe487b022f_screenshot5.png",
+      "SourceId": "Clothing Store",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\AGOPU\\Source\\Repos\\ClothingStore-ASP.NETCoreMVC\\wwwroot\\",
+      "BasePath": "_content/Clothing Store",
+      "RelativePath": "Images/04498db8-03fd-4692-99fe-10fe487b022f_screenshot5.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\04498db8-03fd-4692-99fe-10fe487b022f_screenshot5.png"
+    },
+    {
+      "Identity": "C:\\Users\\AGOPU\\Source\\Repos\\ClothingStore-ASP.NETCoreMVC\\wwwroot\\Images\\f28a0fd0-2153-41c8-9534-86cdbc56460f_screenshot5.png",
+      "SourceId": "Clothing Store",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\AGOPU\\Source\\Repos\\ClothingStore-ASP.NETCoreMVC\\wwwroot\\",
+      "BasePath": "_content/Clothing Store",
+      "RelativePath": "Images/f28a0fd0-2153-41c8-9534-86cdbc56460f_screenshot5.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\f28a0fd0-2153-41c8-9534-86cdbc56460f_screenshot5.png"
     },
     {
       "Identity": "C:\\Users\\AGOPU\\Source\\Repos\\ClothingStore-ASP.NETCoreMVC\\wwwroot\\Images\\Slider_1.jpg",

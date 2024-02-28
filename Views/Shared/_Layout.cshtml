@@ -27,6 +27,8 @@
             width: 100%;
         }
     </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
     <header>
@@ -47,39 +49,42 @@
                     @if (SignInManager.IsSignedIn(User))
                     {
                         <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" style="color: black" asp-area="" asp-controller="Products" asp-action="GetProductsByCategory" asp-route-category="Mens">Men</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" style="color: black" asp-area="" asp-controller="Products" asp-action="GetProductsByCategory" asp-route-category="Women">Women</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" style="color: black" asp-area="" asp-controller="Products" asp-action="GetProductsByCategory" asp-route-category="Kids">Kids</a>
+                            </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Products" asp-action="GetProductsByCategory" asp-route-category="Mens">Men</a>
+                                <a class="nav-link" style="color: black" asp-area="" asp-controller="Home" asp-action="Index">About</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Products" asp-action="GetProductsByCategory" asp-route-category="Women">Women</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Products" asp-action="GetProductsByCategory" asp-route-category="Kids">Kids</a>
+                            <li style="display: none">
+                                <a class="nav-link" style="color: black" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">About</a>
-                            </li>
                         </ul>
                     }
                     <ul class="navbar-nav ms-auto">
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a class="nav-link bi bi-cart" asp-area="" asp-controller="Cart" asp-action="Index">@TempData["CartItemCount"]</a>
+                                <a class="nav-link bi bi-cart" style="color: black" asp-area="" asp-controller="Cart" asp-action="Index">@TempData["CartItemCount"]</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link bi bi-person-circle" asp-area="" asp-controller="MyAccount" asp-action="MyAccount"></a>
+                                <a class="nav-link bi bi-person-circle" style="color: black" asp-area="" asp-controller="MyAccount" asp-action="MyAccount"></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link bi bi-box-arrow-right" asp-area="" asp-controller="Account" asp-action="Logout"></a>
+                                <a class="nav-link bi bi-box-arrow-right" style="color: black" asp-area="" asp-controller="Account" asp-action="Logout"></a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link bi bi-box-arrow-in-left" asp-area="" asp-controller="Account" asp-action="Login"></a>
+                                <a class="nav-link bi bi-box-arrow-in-left" style="color: black"  asp-area="" asp-controller="Account" asp-action="Login"></a>
                             </li>
                         }
                     </ul>

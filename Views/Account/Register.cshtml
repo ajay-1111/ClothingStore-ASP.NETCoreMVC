@@ -3,6 +3,9 @@
     ViewData["Title"] = "Register";
 }
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <h2 class="text-center mb-4">Register</h2>
 
 <div class="row justify-content-center">
@@ -48,24 +51,13 @@
     </div>
 </div>
 
-
 <script type="text/javascript">
 
     $(document).ready(function () {
-        var LoginErrorMessage = '@(TempData["LoginError"] as string)';
         var RegistrationMessage = '@(TempData["RegisterationMessage"] as string)';
         var RegistrationErrorMessage = '@(TempData["RegisterationErrorMessage"] as string)';
 
-        if (LoginErrorMessage) {
-            Swal.fire(
-                'Clothing Store',
-                LoginErrorMessage,
-                'error').then(function () {
-                    var url = '@Url.Action("Login", "Account")';
-                    window.location.href = url;
-                });
-        }
-
+       
         if (RegistrationMessage) {
             Swal.fire(
                 'Clothing Store',
@@ -80,11 +72,8 @@
             Swal.fire(
                 'Clothing Store',
                 RegistrationErrorMessage,
-                'error').then(function () {
-                    var url = '@Url.Action("Register", "Account")';
-                    window.location.href = url;
-                });
+                'error');
         }
-    };
+    };    
 
 </script>

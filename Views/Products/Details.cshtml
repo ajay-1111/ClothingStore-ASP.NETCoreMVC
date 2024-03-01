@@ -14,7 +14,7 @@
                             <p class="card-text">Price: $@Model.Price</p>
                             <p class="card-text">Rating: @Model.Rating</p>
                             <p class="card-text">Description: @Model.Description</p>
-                            <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id" class="btn btn-primary">Add to Cart</a>
+                            <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id" style="background-color: #2d545e !important; color: white" class="btn btn-primary">Add to Cart</a>
                         </div>
                     </div>
                 </div>
@@ -23,18 +23,26 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        var NoProductFound = '@(TempData["NoProductFound"] as string)';
+@section Scripts
+{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript">
 
-        if (RegistrationErrorMessage) {
-            Swal.fire(
-                'Clothing Store',
-                NoProductFound,
-                'warning').then(function () {
+        $(document).ready(function () {
+            var NoProductFound = '@(TempData["NoProductFound"] as string)';
+
+            if (NoProductFound) {
+                Swal.fire({
+                    title: 'Clothing Store',
+                    text: NoProductFound,
+                    icon: 'warning'
+                }).then(function () {
                     var url = '@Url.Action("Index", "Products")';
                     window.location.href = url;
                 });
-        }
-    };
-</script>
+            }
+        });
+
+    </script>
+}

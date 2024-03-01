@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gpauY6hahKXPe5Z38tL3KY+fnZNXD0NV8BDRW2gzvfgok7BGwUliJlMSh1gcZN4G8pfmgsHxOLqCczZx3JDBdw==",
+  "dgSpecHash": "zYh2dTtZqx+5u0tIAH8jvph3MUEWJRWVZJGNDTzGRSh/MMoJyiEHN1zYHB+6Aej5e53Ll/scRQEAHEwzca0t/A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\AGOPU\\Source\\Repos\\ClothingStore-ASP.NETCoreMVC\\Clothing Store.csproj",
+  "projectFilePath": "C:\\Users\\AGOPU\\source\\repos\\ClothingStore-ASP.NETCoreMVC\\Clothing Store.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\AGOPU\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\AGOPU\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

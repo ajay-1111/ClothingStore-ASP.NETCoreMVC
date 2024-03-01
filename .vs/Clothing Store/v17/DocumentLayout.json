@@ -1,0 +1,156 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\AGOPU\\source\\repos\\ClothingStore-ASP.NETCoreMVC\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{93541F1B-9792-4F07-A0E0-125DC7C16CE9}|Clothing Store.csproj|c:\\users\\agopu\\source\\repos\\clothingstore-asp.netcoremvc\\views\\products\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{93541F1B-9792-4F07-A0E0-125DC7C16CE9}|Clothing Store.csproj|solutionrelative:views\\products\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{93541F1B-9792-4F07-A0E0-125DC7C16CE9}|Clothing Store.csproj|c:\\users\\agopu\\source\\repos\\clothingstore-asp.netcoremvc\\views\\cart\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{93541F1B-9792-4F07-A0E0-125DC7C16CE9}|Clothing Store.csproj|solutionrelative:views\\cart\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{93541F1B-9792-4F07-A0E0-125DC7C16CE9}|Clothing Store.csproj|c:\\users\\agopu\\source\\repos\\clothingstore-asp.netcoremvc\\views\\products\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{93541F1B-9792-4F07-A0E0-125DC7C16CE9}|Clothing Store.csproj|solutionrelative:views\\products\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{93541F1B-9792-4F07-A0E0-125DC7C16CE9}|Clothing Store.csproj|c:\\users\\agopu\\source\\repos\\clothingstore-asp.netcoremvc\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{93541F1B-9792-4F07-A0E0-125DC7C16CE9}|Clothing Store.csproj|solutionrelative:views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{93541F1B-9792-4F07-A0E0-125DC7C16CE9}|Clothing Store.csproj|c:\\users\\agopu\\source\\repos\\clothingstore-asp.netcoremvc\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{93541F1B-9792-4F07-A0E0-125DC7C16CE9}|Clothing Store.csproj|solutionrelative:views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{93541F1B-9792-4F07-A0E0-125DC7C16CE9}|Clothing Store.csproj|c:\\users\\agopu\\source\\repos\\clothingstore-asp.netcoremvc\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{93541F1B-9792-4F07-A0E0-125DC7C16CE9}|Clothing Store.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{93541F1B-9792-4F07-A0E0-125DC7C16CE9}|Clothing Store.csproj|c:\\users\\agopu\\source\\repos\\clothingstore-asp.netcoremvc\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{93541F1B-9792-4F07-A0E0-125DC7C16CE9}|Clothing Store.csproj|solutionrelative:controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{93541F1B-9792-4F07-A0E0-125DC7C16CE9}|Clothing Store.csproj|c:\\users\\agopu\\source\\repos\\clothingstore-asp.netcoremvc\\viewmodels\\entities\\registeruserentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{93541F1B-9792-4F07-A0E0-125DC7C16CE9}|Clothing Store.csproj|solutionrelative:viewmodels\\entities\\registeruserentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\AGOPU\\source\\repos\\ClothingStore-ASP.NETCoreMVC\\Views\\Cart\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Cart\\Index.cshtml",
+              "ToolTip": "C:\\Users\\AGOPU\\source\\repos\\ClothingStore-ASP.NETCoreMVC\\Views\\Cart\\Index.cshtml",
+              "RelativeToolTip": "Views\\Cart\\Index.cshtml",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAADQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-03-01T16:54:55.287Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\AGOPU\\source\\repos\\ClothingStore-ASP.NETCoreMVC\\Views\\Products\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Products\\Index.cshtml",
+              "ToolTip": "C:\\Users\\AGOPU\\source\\repos\\ClothingStore-ASP.NETCoreMVC\\Views\\Products\\Index.cshtml",
+              "RelativeToolTip": "Views\\Products\\Index.cshtml",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAUwCIAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-03-01T16:47:35.59Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\AGOPU\\source\\repos\\ClothingStore-ASP.NETCoreMVC\\Views\\Products\\Details.cshtml",
+              "RelativeDocumentMoniker": "Views\\Products\\Details.cshtml",
+              "ToolTip": "C:\\Users\\AGOPU\\source\\repos\\ClothingStore-ASP.NETCoreMVC\\Views\\Products\\Details.cshtml",
+              "RelativeToolTip": "Views\\Products\\Details.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAACfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-03-01T16:47:34.958Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\AGOPU\\source\\repos\\ClothingStore-ASP.NETCoreMVC\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\AGOPU\\source\\repos\\ClothingStore-ASP.NETCoreMVC\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAAB4AAABBAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-03-01T16:45:47.94Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\AGOPU\\source\\repos\\ClothingStore-ASP.NETCoreMVC\\Views\\Account\\Login.cshtml",
+              "RelativeDocumentMoniker": "Views\\Account\\Login.cshtml",
+              "ToolTip": "C:\\Users\\AGOPU\\source\\repos\\ClothingStore-ASP.NETCoreMVC\\Views\\Account\\Login.cshtml",
+              "RelativeToolTip": "Views\\Account\\Login.cshtml",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAUwCEAAABKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-03-01T15:44:42.017Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Register.cshtml",
+              "DocumentMoniker": "C:\\Users\\AGOPU\\source\\repos\\ClothingStore-ASP.NETCoreMVC\\Views\\Account\\Register.cshtml",
+              "RelativeDocumentMoniker": "Views\\Account\\Register.cshtml",
+              "ToolTip": "C:\\Users\\AGOPU\\source\\repos\\ClothingStore-ASP.NETCoreMVC\\Views\\Account\\Register.cshtml",
+              "RelativeToolTip": "Views\\Account\\Register.cshtml",
+              "ViewState": "AQIAAC0AAAAAAAAAAAAAADMAAABKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-03-01T15:33:54.379Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "RegisterUserEntity.cs",
+              "DocumentMoniker": "C:\\Users\\AGOPU\\source\\repos\\ClothingStore-ASP.NETCoreMVC\\ViewModels\\Entities\\RegisterUserEntity.cs",
+              "RelativeDocumentMoniker": "ViewModels\\Entities\\RegisterUserEntity.cs",
+              "ToolTip": "C:\\Users\\AGOPU\\source\\repos\\ClothingStore-ASP.NETCoreMVC\\ViewModels\\Entities\\RegisterUserEntity.cs",
+              "RelativeToolTip": "ViewModels\\Entities\\RegisterUserEntity.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-01T15:33:52.431Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\Users\\AGOPU\\source\\repos\\ClothingStore-ASP.NETCoreMVC\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AccountController.cs",
+              "ToolTip": "C:\\Users\\AGOPU\\source\\repos\\ClothingStore-ASP.NETCoreMVC\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "Controllers\\AccountController.cs",
+              "ViewState": "AQIAAC8AAAAAAAAAAAAQwEUAAAAwAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-01T15:33:13.969Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

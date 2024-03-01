@@ -44,7 +44,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Total</h5>
                     <h6 class="card-subtitle mb-2 text-muted">$<span id="totalPrice">@Model.Sum(item => item.Price * item.Quantity)</span></h6>
-                    <button class="btn btn-primary btn-block checkOutBtn">Proceed to Checkout</button>
+                    <button class="btn btn-outline-light btn-block checkOutBtn" style="background-color: #2d545e !important; color: white">Proceed to Checkout</button>
                 </div>
             </div>
         </div>
@@ -53,10 +53,9 @@
 
 @section Scripts {
     <script>
-
         $(document).ready(function () {
             // Increase quantity
-            $('.plusBtn').click(function () {
+            $(document).on('click', '.plusBtn', function () {
                 var productId = $(this).data('product-id');
                 var quantityInput = $('#quantity-' + productId);
                 var quantity = parseInt(quantityInput.val());
@@ -65,7 +64,7 @@
             });
 
             // Decrease quantity
-            $('.minusBtn').click(function () {
+            $(document).on('click', '.minusBtn', function () {
                 var productId = $(this).data('product-id');
                 var quantityInput = $('#quantity-' + productId);
                 var quantity = parseInt(quantityInput.val());
@@ -76,7 +75,7 @@
             });
 
             // Remove item
-            $('.removeBtn').click(function () {
+            $(document).on('click', '.removeBtn', function () {
                 var productId = $(this).data('product-id');
                 var row = $(this).closest('tr');
 
@@ -101,9 +100,9 @@
                 });
             });
 
-            // Remove item
-            $('.checkOutBtn').click(function () {
-                // Send AJAX request to remove the item from the cart
+            // Proceed to Checkout
+            $(document).on('click', '.checkOutBtn', function () {
+                // Send AJAX request to place the order
                 $.ajax({
                     url: '/Orders/PlaceOrder', // Update the URL to your controller action
                     method: 'POST',
@@ -144,9 +143,7 @@
                     }
                 });
                 $('#totalPrice').text('$' + totalPrice.toFixed(2)); // Update the text to include a single dollar sign
-            }         
-
+            }
         });
-
     </script>
 }

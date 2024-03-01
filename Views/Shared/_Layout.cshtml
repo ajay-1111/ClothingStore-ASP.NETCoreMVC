@@ -1,5 +1,4 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using Clothing_Store.ViewModels.Entities
 @inject SignInManager<RegisterUserEntity> SignInManager
 
@@ -9,7 +8,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Clothing Store</title>
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="~/css/site.css" />
@@ -27,12 +25,10 @@
             width: 100%;
         }
     </style>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" >
             <div class="container">
                 @if (SignInManager.IsSignedIn(User))
                 {
@@ -84,7 +80,7 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link bi bi-box-arrow-in-left" style="color: black"  asp-area="" asp-controller="Account" asp-action="Login"></a>
+                                <a class="nav-link bi bi-box-arrow-in-left" style="color: black" asp-area="" asp-controller="Account" asp-action="Login"></a>
                             </li>
                         }
                     </ul>
@@ -100,17 +96,9 @@
     </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-    @*<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-    asp-fallback-test="window.jQuery"
-    crossorigin="anonymous"
-    integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
-    </script>*@
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @* Include other necessary scripts here *@
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

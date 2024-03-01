@@ -11,7 +11,7 @@
                         <h5 class="card-title">@product.Name</h5>
                         <p class="card-text">Price: $@product.Price</p>
                         <p class="card-text">Rating: @product.Rating</p>
-                        <a href="@Url.Action("Details", "Products", new { productId = product.Id })" class="btn btn-primary">View Details</a>
+                        <a href="@Url.Action("Details", "Products", new { productId = product.Id })" class="btn btn-primary" style="background-color: #2d545e !important; color: white">View Details</a>
                     </div>
                 </div>
             </div>
@@ -19,31 +19,36 @@
     </div>
 </div>
 
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        var NoProducts = '@(TempData["NoProducts"] as string)';
-        var NoProductFound = '@(TempData["NoProductFound"] as string)';
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var NoProducts = '@(TempData["NoProducts"] as string)';
+            var NoProductFound = '@(TempData["NoProductFound"] as string)';
 
-        if (NoProducts) {
-            Swal.fire(
-                'Clothing Store',
-                NoProducts,
-                'warning').then(function () {
+            if (NoProducts) {
+                Swal.fire({
+                    title: 'Clothing Store',
+                    text: NoProducts,
+                    icon: 'warning'
+                }).then(function () {
                     var url = '@Url.Action("Index", "Products")';
                     window.location.href = url;
                 });
+            }
 
-        }
-
-        if (RegistrationErrorMessage) {
-            Swal.fire(
-                'Clothing Store',
-                NoProductFound,
-                'warning').then(function () {
+            if (NoProductFound) {
+                Swal.fire({
+                    title: 'Clothing Store',
+                    text: NoProductFound,
+                    icon: 'warning'
+                }).then(function () {
                     var url = '@Url.Action("Index", "Products")';
                     window.location.href = url;
                 });
-        }
-    };
-</script>
+            }
+        });
+    </script>
+}

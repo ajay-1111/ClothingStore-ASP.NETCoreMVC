@@ -3,46 +3,58 @@
     ViewData["Title"] = "Login";
 }
 
+<style>
+
+    .bg-body-color {
+        background-color: #12343b !important;
+    }
+
+</style>
 <h2 class="text-center mb-4" style="padding-top: 2em;">Login</h2>
 
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <div class="card shadow p-3 mb-5 bg-body rounded" style="background-color: #f8d7da;">
+        <div class="card shadow p-3 mb-5 bg-body bg-body-color rounded">
             <div class="card-body">
                 <form asp-action="Login" method="post">
-                    @* <div asp-validation-summary="All" class="text-danger"></div>*@
                     <div class="mb-3">
-                        <label asp-for="Email" class="form-label"></label>
+                        <label asp-for="Email" class="form-label" style="color: white"></label>
                         <input asp-for="Email" class="form-control" />
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
-                        <label asp-for="Password" class="form-label"></label>
+                        <label asp-for="Password" class="form-label" style="color: white"></label>
                         <input asp-for="Password" type="password" class="form-control" />
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
-                    <div class="mb-3">
-                        <a asp-action="Register" asp-controller="Account">Register Here</a>
+                    <div class="mb-3 text-center">
+                        <a asp-action="Register" asp-controller="Account" style="color: white">Register Here</a>
                     </div>
-                    <button type="submit" class="btn btn-success">Login</button>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-outline-light">Login</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        var customeMessage = '@(TempData["LoginError"] as string)';
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            var customMessage = '@(TempData["LoginError"] as string)';
 
-        if (customeMessage) {
-            Swal.fire(
-                'Clothing Store',
-                customeMessage,
-                'error').then(function () {
+            if (customMessage) {
+                Swal.fire({
+                    title: 'Clothing Store',
+                    text: customMessage,
+                    icon: 'error'
+                }).then(function () {
                     var url = '@Url.Action("Login", "Account")';
                     window.location.href = url;
                 });
-        }
-    });
-</script>
+            }
+        });
+    </script>
+}

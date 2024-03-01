@@ -41,29 +41,34 @@
     </form>
 </div>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        var customeMessage = '@(TempData["UpdateSuccess"] as string)';
-        var customeErrorMessage = '@(TempData["UpdateError"] as string)';
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            var customMessage = '@(TempData["UpdateSuccess"] as string)';
+            var customErrorMessage = '@(TempData["UpdateError"] as string)';
 
-        if (customeMessage) {
-            Swal.fire(
-                'Admin',
-                customeMessage,
-                'error').then(function () {
+            if (customMessage) {
+                Swal.fire({
+                    title: 'Admin',
+                    text: customMessage,
+                    icon: 'success'
+                }).then(function () {
                     var url = '@Url.Action("Index", "Admin")';
                     window.location.href = url;
                 });
-        }
-        
-        if (customeErrorMessage) {
-            Swal.fire(
-                'Admin',
-                customeErrorMessage,
-                'error').then(function () {
+            }
+
+            if (customErrorMessage) {
+                Swal.fire({
+                    title: 'Admin',
+                    text: customErrorMessage,
+                    icon: 'error'
+                }).then(function () {
                     var url = '@Url.Action("Index", "Admin")';
                     window.location.href = url;
                 });
-        }
-    });
-</script>
+            }
+        });
+    </script>
+}

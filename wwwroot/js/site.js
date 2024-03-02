@@ -2,3 +2,11 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+
+window.addEventListener('beforeunload', function (e) {
+    // Send AJAX request to invalidate session
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/Account/Logout', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send();
+});

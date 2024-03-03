@@ -3775,23 +3775,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\AGOPU\\.nuget\\packages\\": {},
+    "C:\\Users\\Admin\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\AGOPU\\source\\repos\\ClothingStore-ASP.NETCoreMVC\\Clothing Store.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\Source\\Repos\\ClothingStore-ASP.NETCoreMVC\\Clothing Store.csproj",
       "projectName": "Clothing Store",
-      "projectPath": "C:\\Users\\AGOPU\\source\\repos\\ClothingStore-ASP.NETCoreMVC\\Clothing Store.csproj",
-      "packagesPath": "C:\\Users\\AGOPU\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\AGOPU\\source\\repos\\ClothingStore-ASP.NETCoreMVC\\obj\\",
+      "projectPath": "C:\\Users\\Admin\\Source\\Repos\\ClothingStore-ASP.NETCoreMVC\\Clothing Store.csproj",
+      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Admin\\Source\\Repos\\ClothingStore-ASP.NETCoreMVC\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\AGOPU\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -3799,8 +3799,9 @@
         "net6.0"
       ],
       "sources": {
-        "https://api.nuget.org/v3/index.json": {},
-        "https://pkgs.dev.azure.com/Next-Technology/FinanceTech.CoreFinance/_packaging/FinanceTech.CoreFinance.Root.Dev/nuget/v3/index.json": {}
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
@@ -3812,11 +3813,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -3873,7 +3869,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

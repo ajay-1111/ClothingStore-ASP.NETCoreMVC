@@ -25,6 +25,12 @@ builder.Services.AddIdentity<RegisterUserEntity, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.AddSession(options =>
+{
+    options.Cookie.IsEssential = true;
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+});
+
 builder.Services.AddAuthorization();
 
 var app = builder.Build();

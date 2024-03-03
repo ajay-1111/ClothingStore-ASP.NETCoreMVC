@@ -20,7 +20,7 @@ namespace Clothing_Store.Controllers
         {
             TempData["NoProducts"] = null;
            // Retrieve all products from the database
-            var products = _context.tblProducts.ToList();
+             var products = _context.tblProducts.ToList();
 
             // Check if products list is empty
             if (products.Count == 0)
@@ -65,6 +65,7 @@ namespace Clothing_Store.Controllers
             if (product == null)
             {
                 TempData["NoProductFound"] = $"Unable to find the product details for ID : {productId}";
+                return View(TempData["NoProductFound"]);
             }
             
             ProductViewModel productModel = new ProductViewModel()
@@ -94,7 +95,7 @@ namespace Clothing_Store.Controllers
                 if (products.Count == 0)
                 {
                     TempData["NoProducts"] = $"No products available for category: {category}";
-                    return Json(new { success = true });
+                    return RedirectToAction("Index");
                 }
 
                 var productViewModels = products.Select(product => new ProductViewModel
